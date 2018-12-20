@@ -1,0 +1,33 @@
+micronaut:
+    application:
+        name: TaskService
+    server:
+        port : 8082
+datasources:
+    default:
+        url: ${JDBC_URL:`jdbc:mysql://localhost:3306/micronaut_demo`}
+        username: ${JDBC_USER:root}
+        password: ${JDBC_PASSWORD:nextdefault}
+        driverClassName: ${JDBC_DRIVER:com.mysql.jdbc.Driver}
+jpa:
+    default:
+        packages-to-scan:
+            - 'taskmanager.domain' # <1>
+        properties:
+            hibernate:
+                hbm2ddl:
+                    auto: update
+                show_sql: true
+eureka:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}"
+
+jackson:
+    serialization:
+        indentOutput: true
+        writeDatesAsTimestamps: false
+    deserialization:
+        useBigIntegerForInts: true
+        failOnUnknownProperties: false

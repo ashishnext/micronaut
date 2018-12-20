@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: taskmanager
+---
+testFramework: junit
+sourceLanguage: java
