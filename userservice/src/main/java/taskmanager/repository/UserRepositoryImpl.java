@@ -6,11 +6,13 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.retry.annotation.Retryable;
 import io.micronaut.spring.tx.annotation.Transactional;
 import taskmanager.domain.User;
+import taskmanager.models.UpdateUserTO;
 import taskmanager.models.UserTO;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -33,6 +35,16 @@ public class UserRepositoryImpl implements UserRepository {
     @Transactional(readOnly = false)
     public Optional<User> findById(@NotNull Long id){
         return Optional.ofNullable(entityManager.find(User.class,id));
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public Optional<User> findByUsername(@NotNull String username){
+        Query userQuery = entityManager.createNativeQuery("SELECT * FROM user u WHERE u.username = ?", User.class);
+        userQuery.setParameter(1, username);
+        User user = (User)userQuery.getSingleResult();
+
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -74,8 +86,30 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional(readOnly = false)
-    public void update(@NotNull Long id, @NotBlank @Body UserTO userTO){
-        User updatedUser = new User(userTO);
-        findById(id).ifPresent(user ->entityManager.merge(updatedUser));
+    public User update(@NotBlank @Body UpdateUserTO updateUserTO){
+        Optional<User> userOptional = findByUsername(updateUserTO.getUsername());
+        System.out.println(userOptional.get().getUserName());
+//        User updatedUser = new User(updateUserTO);
+        userOptional.ifPresent(user ->  {
+            user.setFirstName(updateUserTO.getFirstName());
+            user.setLastName(updateUserTO.getLastName());
+            entityManager.merge(user);
+        });
+        return userOptional.orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public Boolean delete(@NotBlank @NotNull String username){
+        Optional<User> userOptional = findByUsername(username);
+        System.out.println("Use to delete =========== " + username);
+//        User updatedUser = new User(updateUserTO);
+        User user = userOptional.get();
+        if (user == null) {
+            return Boolean.FALSE;
+        } else {
+            entityManager.remove(user);
+            return Boolean.TRUE;
+        }
     }
 }

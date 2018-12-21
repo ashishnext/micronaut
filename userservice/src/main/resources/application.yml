@@ -23,6 +23,13 @@ eureka:
     registration:
       enabled: true
     defaultZone: "${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}"
+
+#consul:
+#  client:
+#    registration:
+#      enabled: true
+#    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
+
 jackson:
     serialization:
         indentOutput: true

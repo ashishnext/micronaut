@@ -2,16 +2,16 @@ package taskmanager.controllers;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import io.reactivex.Flowable;
 import jdk.nashorn.internal.parser.JSONParser;
+import taskmanager.classes.UpdateUserCO;
 import taskmanager.classes.User;
 import taskmanager.classes.UserCO;
 import taskmanager.clientOperations.UserOperations;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Controller
@@ -39,5 +39,17 @@ public class UserController {
     public Flowable<User> fallbackFindAllUsers() {
         System.out.println("Fetching all users");
         return userOperations.fallbackFindAll();
+    }
+
+    @Put("/api/user")
+    public Flowable<User> updateUser(@Body UpdateUserCO updateUserCO) {
+        System.out.println("UserCo ========= " + updateUserCO.getUsername());
+        return userOperations.update(updateUserCO);
+    }
+
+    @Delete("/api/user")
+    public Boolean deleteUser(@NotBlank @NotNull String username) {
+        System.out.println("Deleting user ========= " + username);
+        return userOperations.delete(username);
     }
 }

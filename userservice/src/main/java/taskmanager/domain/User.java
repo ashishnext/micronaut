@@ -1,6 +1,7 @@
 package taskmanager.domain;
 
 import org.hibernate.annotations.ColumnDefault;
+import taskmanager.models.UpdateUserTO;
 import taskmanager.models.UserTO;
 
 import javax.persistence.*;
@@ -35,6 +36,9 @@ public class User {
     @Column(name = "last_updated")
     private Date lastUpdated;
 
+    private String firstName;
+    private String lastName;
+
     public User(){
 
     }
@@ -48,7 +52,17 @@ public class User {
     }
 
     public User(UserTO userTO) {
-        this(userTO.getUsername(),userTO.getPassword());
+        this.userName = userTO.getUsername();
+        this.password = userTO.getPassword();
+        this.isActive = false;
+        this.dateCreated = new Date();
+        this.lastUpdated = new Date();
+        this.firstName = userTO.getFirstName();
+        this.lastName = userTO.getLastName();
+    }
+    public User(UpdateUserTO updateUserTO) {
+        firstName = updateUserTO.getFirstName();
+        lastName = updateUserTO.getLastName();
     }
 
     public String getUserName() {
@@ -89,5 +103,21 @@ public class User {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

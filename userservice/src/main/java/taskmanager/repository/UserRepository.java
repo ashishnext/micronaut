@@ -4,6 +4,7 @@ import io.micronaut.http.annotation.Body;
 import io.micronaut.retry.annotation.CircuitBreaker;
 import io.micronaut.retry.annotation.Retryable;
 import taskmanager.domain.User;
+import taskmanager.models.UpdateUserTO;
 import taskmanager.models.UserTO;
 
 import javax.validation.constraints.NotBlank;
@@ -15,11 +16,15 @@ public interface UserRepository {
 
     Optional<User> findById(@NotNull Long id);
 
+    Optional<User> findByUsername(@NotNull String username);
+
     User save(@NotBlank @Body UserTO userTO);
 
     void deleteById(@NotNull Long id);
 
-    void update(@NotNull Long id, @NotBlank @Body UserTO userTO);
+    User update(@NotBlank @Body UpdateUserTO updateUserTO);
+
+    Boolean delete(@NotBlank @NotNull String username);
 
     List<User> findAll();
 
