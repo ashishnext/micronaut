@@ -2,6 +2,8 @@ package taskmanager.repository;
 
 import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession;
 import io.micronaut.http.annotation.Body;
+
+import io.micronaut.spring.tx.annotation.Transactional;
 import taskmanager.domain.Task;
 import taskmanager.model.TaskTO;
 
@@ -21,8 +23,8 @@ public class TaskRepositoryImpl implements TaskRepository{
     TaskRepositoryImpl(@CurrentSession EntityManager entityManager){
         this.entityManager = entityManager;
     }
-
-    public Task save(@NotBlank @Body TaskTO taskTO){
+    @Transactional(readOnly = false)
+    public Task save(@NotBlank @Body TaskTO taskTO) {
         System.out.println("=======Creating task=======");
         Task taskCReatedByUser = new Task(taskTO);
         entityManager.persist(taskCReatedByUser);
