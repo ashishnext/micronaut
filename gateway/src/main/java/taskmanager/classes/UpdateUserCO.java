@@ -3,31 +3,29 @@ package taskmanager.classes;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
-public class UserCO {
+public class UpdateUserCO {
 
     @NotNull
     @NotBlank
     private String username;
 
-    @NotNull
-    @NotBlank
-    private String password;
-
-    private Date dateOfBirth;
+    //    @NotNull
+//    @NotBlank
+//    private String password;
+//    private Date dateOfBirth;
     private String firstName;
     private String lastName;
 
-    public UserCO(){
+    public UpdateUserCO(){
 
     }
 
-    public UserCO(String username, String password, Date dateOfBirth) {
-        this.username = username;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-    }
+//    public UpdateUserTO(String username, String password, Date dateOfBirth) {
+//        this.username = username;
+//        this.password = password;
+//        this.dateOfBirth = dateOfBirth;
+//    }
 
     public String getUsername() {
         return username;
@@ -37,21 +35,21 @@ public class UserCO {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public Date getDateOfBirth() {
+//        return dateOfBirth;
+//    }
+//
+//    public void setDateOfBirth(Date dateOfBirth) {
+//        this.dateOfBirth = dateOfBirth;
+//    }
 
     public String getFirstName() {
         return firstName;

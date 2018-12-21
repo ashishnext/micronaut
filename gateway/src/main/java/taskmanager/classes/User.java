@@ -11,6 +11,8 @@ public class User {
     private Boolean isActive;
     private Date dateCreated;
     private Date lastUpdated;
+    private String firstName;
+    private String lastName;
 
     public String getUserName() {
         return userName;
@@ -50,5 +52,21 @@ public class User {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
