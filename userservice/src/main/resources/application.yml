@@ -2,7 +2,7 @@ micronaut:
     application:
         name: UserService
     server:
-        port : 8081
+        port : 9001
 datasources:
     default:
         url: ${JDBC_URL:`jdbc:mysql://localhost:3306/micronaut_demo`}

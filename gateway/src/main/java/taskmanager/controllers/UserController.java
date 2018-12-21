@@ -3,6 +3,7 @@ package taskmanager.controllers;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import io.micronaut.http.annotation.*;
+import io.micronaut.tracing.annotation.NewSpan;
 import io.reactivex.Flowable;
 import jdk.nashorn.internal.parser.JSONParser;
 import taskmanager.classes.UpdateUserCO;
@@ -29,6 +30,7 @@ public class UserController {
         return userOperations.create(userCO);
     }
 
+    @NewSpan
     @Get("/api/users")
     public Flowable<User> findAllUsers() {
         System.out.println("Fetching all users");
